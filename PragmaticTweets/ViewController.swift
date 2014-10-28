@@ -28,10 +28,14 @@ class ViewController: UIViewController {
 
             tweetVC.setInitialText("First tweet from some #swift code. Sweet. #pragsios8")
             
-            self.presentViewController(tweetVC, animated: true, completion: nil)
+            self.presentViewController(tweetVC, animated: false, completion: {self.completeWithMessage("Roger")})
         } else {
             println("can't send tweet")
         }
+    }
+    
+    func completeWithMessage(str: String) -> Void {
+        println("\(str), j'ai fini!!")
     }
 }
 
