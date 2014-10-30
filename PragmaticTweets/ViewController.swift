@@ -27,8 +27,11 @@ class ViewController: UIViewController {
     @IBAction func handleTweetButtonTapped(sender: UIButton) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
             let tweetVC = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-
-            tweetVC.setInitialText("First tweet from some #swift code. Sweet. #pragsios8")
+            let message = NSBundle.mainBundle().localizedStringForKey("First tweet from some #swift code. Sweet. #pragsios8",
+                value: "",
+                table: nil)
+            
+            tweetVC.setInitialText(message)
             
             self.presentViewController(tweetVC, animated: false, completion: {self.completeWithMessage("Roger")})
         } else {
