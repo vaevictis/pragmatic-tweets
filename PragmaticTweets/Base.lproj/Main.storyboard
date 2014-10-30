@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocn-aS-lM9">
-                                <rect key="frame" x="260" y="550" width="80" height="30"/>
+                                <rect key="frame" x="260" y="58" width="80" height="30"/>
                                 <state key="normal" title="Send Tweet">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -26,24 +26,55 @@
                                     <action selector="handleTweetButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2yh-Yw-SMj"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I finished the first project" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfR-xK-hp9">
-                                <rect key="frame" x="205" y="521" width="190" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR1-Y6-2a3">
+                                <rect key="frame" x="243" y="20" width="114" height="30"/>
+                                <state key="normal" title="Show my tweets">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleShowMyTweetsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Af1-C5-dyV"/>
+                                </connections>
+                            </button>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ey-rb-ON4">
+                                <rect key="frame" x="16" y="96" width="568" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ocn-aS-lM9" firstAttribute="top" secondItem="wfR-xK-hp9" secondAttribute="bottom" constant="8" id="FU4-oS-kO7"/>
+                            <constraint firstItem="ocn-aS-lM9" firstAttribute="top" secondItem="UR1-Y6-2a3" secondAttribute="bottom" constant="8" id="3jQ-A3-lw1"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7ey-rb-ON4" secondAttribute="bottom" id="79z-W3-j7P"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7ey-rb-ON4" secondAttribute="trailing" id="BfR-wn-zVq"/>
+                            <constraint firstItem="UR1-Y6-2a3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Bgg-Ai-Lqy"/>
+                            <constraint firstItem="7ey-rb-ON4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="DIY-RA-6br"/>
                             <constraint firstAttribute="bottomMargin" secondItem="ocn-aS-lM9" secondAttribute="bottom" constant="20" id="LHJ-YT-6VK"/>
-                            <constraint firstAttribute="centerX" secondItem="wfR-xK-hp9" secondAttribute="centerX" id="hAq-kc-lXH"/>
+                            <constraint firstItem="UR1-Y6-2a3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="MKI-bq-pcN"/>
+                            <constraint firstItem="7ey-rb-ON4" firstAttribute="top" secondItem="ocn-aS-lM9" secondAttribute="bottom" constant="8" id="RWg-oD-ZcZ"/>
+                            <constraint firstItem="7ey-rb-ON4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ZrQ-98-0az"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7ey-rb-ON4" secondAttribute="trailing" constant="16" id="d22-uf-22B"/>
                             <constraint firstAttribute="centerX" secondItem="ocn-aS-lM9" secondAttribute="centerX" id="nej-2y-Lsl"/>
+                            <constraint firstAttribute="centerX" secondItem="UR1-Y6-2a3" secondAttribute="centerX" id="xbC-VM-Yh0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7ey-rb-ON4" secondAttribute="bottom" id="yef-nE-7Cb"/>
+                            <constraint firstItem="7ey-rb-ON4" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="zTp-J9-63M"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ZrQ-98-0az"/>
+                                <exclude reference="d22-uf-22B"/>
+                                <exclude reference="zTp-J9-63M"/>
+                                <exclude reference="Bgg-Ai-Lqy"/>
+                                <exclude reference="LHJ-YT-6VK"/>
+                                <exclude reference="yef-nE-7Cb"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="twitterWebView" destination="7ey-rb-ON4" id="LKo-0g-AS2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="307" y="523"/>
         </scene>
     </scenes>
 </document>
