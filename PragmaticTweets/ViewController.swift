@@ -9,16 +9,17 @@
 import UIKit
 import Social
 
-class ViewController: UIViewController {
+public class ViewController: UIViewController {
 
-    @IBOutlet weak var twitterWebView: UIWebView!
+    @IBOutlet public var twitterWebView: UIWebView!
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
+        self.showWebView()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
+    public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -40,11 +41,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func handleShowMyTweetsButtonTapped(sender: UIButton) {
-        self.twitterWebView.loadRequest(NSURLRequest (URL: NSURL (string: "http://twitter.com/ghammadi")!))
+        self.showWebView()
     }
     
     func completeWithMessage(str: String) -> Void {
         println("\(str), j'ai fini!!")
+    }
+    
+    func showWebView() {
+        self.twitterWebView.loadRequest(NSURLRequest (URL: NSURL (string: "http://twitter.com/ghammadi")!))
     }
 }
 
