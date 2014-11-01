@@ -9,47 +9,59 @@
 import UIKit
 import Social
 
-public class ViewController: UIViewController {
+public class ViewController: UITableViewController {
+    
+    var parsedTweets: Array <ParsedTweet> = [
+        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
+            userName: "@ghammadi",
+            createdAt: "2014-01-11 12:50 EDT"),
+        
+        ParsedTweet(tweetText: "Math is cool",
+            userName: "@redqueencoder",
+            createdAt: "2014-29-10 10:10 EDT"),
+        
+        ParsedTweet(tweetText: "I want a kebab",
+            userName: "@ghammadi",
+            createdAt: "2014-29-10 10:10 EDT",
+            userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg"))
 
-    @IBOutlet public var twitterWebView: UIWebView!
+    ]
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.showWebView()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.reloadTweets()
     }
 
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-
-    @IBAction func handleTweetButtonTapped(sender: UIButton) {
-        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
-            let tweetVC = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-            let message = NSBundle.mainBundle().localizedStringForKey("First tweet from some #swift code. Sweet. #pragsios8",
-                value: "",
-                table: nil)
-            
-            tweetVC.setInitialText(message)
-            
-            self.presentViewController(tweetVC, animated: false, completion: {self.completeWithMessage("Roger")})
-        } else {
-            println("can't send tweet")
-        }
+    
+    func reloadTweets() {
+        self.tableView.reloadData()
     }
     
-    @IBAction func handleShowMyTweetsButtonTapped(sender: UIButton) {
-        self.showWebView()
+    //    TableView Data source protocol implementation
+    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+        
+    override public func tableView(_tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.parsedTweets.count
     }
     
-    func completeWithMessage(str: String) -> Void {
-        println("\(str), j'ai fini!!")
+    override public func tableView(_tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("CustomTweetCell") as ParsedTweetCell
+        
+        let parsedTweet = parsedTweets[indexPath.row]
+        cell.tweetTextLabel.text = parsedTweet.tweetText
+        cell.userNameLabel.text = parsedTweet.userName
+        cell.createdAtLabel!.text = parsedTweet.createdAt
+        
+        cell.avatarImageView.image = UIImage (data: NSData (contentsOfURL: parsedTweet.userAvatarUrl!)!)
+        
+        
+        return cell
     }
     
-    func showWebView() {
-        self.twitterWebView.loadRequest(NSURLRequest (URL: NSURL (string: "http://twitter.com/ghammadi")!))
-    }
 }
-

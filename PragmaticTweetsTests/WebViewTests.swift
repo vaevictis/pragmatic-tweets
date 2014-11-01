@@ -23,27 +23,4 @@ class WebViewTests: XCTestCase, UIWebViewDelegate {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testAutomaticWebLoad() {
-        if let viewController = UIApplication.sharedApplication().windows[0].rootViewController as? ViewController {
-            viewController.twitterWebView.delegate = self
-            self.loadedWebViewExpectation = expectationWithDescription("web view autoload test")
-            waitForExpectationsWithTimeout(5.0, handler: nil)
-        } else {
-            XCTFail("couldn't get root view controller")
-        }
-    }
-    
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
-        XCTFail("web view load failed")
-        self.loadedWebViewExpectation!.fulfill()
-    }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        if let webViewContents = webView.stringByEvaluatingJavaScriptFromString("document.documentElement.textContent") {
-            if (webViewContents != "") {
-                self.loadedWebViewExpectation!.fulfill()
-            }
-        }
-    }
 }
