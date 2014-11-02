@@ -8,67 +8,19 @@
 
 import UIKit
 import Social
+import Accounts
 
 public class ViewController: UITableViewController {
     
     var parsedTweets: Array <ParsedTweet> = [
-        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
-            userName: "@ghammadi",
-            createdAt: "2014-01-11 12:50 EDT"),
-        
-        ParsedTweet(tweetText: "Math is cool",
-            userName: "@redqueencoder",
-            createdAt: "2014-29-10 10:10 EDT"),
-        
         ParsedTweet(tweetText: "I want a kebab",
             userName: "@ghammadi",
             createdAt: "2014-29-10 10:10 EDT",
             userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg")),
-        
-        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
-            userName: "@ghammadi",
-            createdAt: "2014-01-11 12:50 EDT"),
-        
-        ParsedTweet(tweetText: "Math is cool",
-            userName: "@redqueencoder",
-            createdAt: "2014-29-10 10:10 EDT"),
-        
-        ParsedTweet(tweetText: "I want a kebab",
-            userName: "@ghammadi",
-            createdAt: "2014-29-10 10:10 EDT",
-            userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg")),
-
-        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
-            userName: "@ghammadi",
-            createdAt: "2014-01-11 12:50 EDT"),
-        
-        ParsedTweet(tweetText: "Math is cool",
-            userName: "@redqueencoder",
-            createdAt: "2014-29-10 10:10 EDT"),
-        
-        ParsedTweet(tweetText: "I want a kebab",
-            userName: "@ghammadi",
-            createdAt: "2014-29-10 10:10 EDT",
-            userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg")),
-        
-        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
-            userName: "@ghammadi",
-            createdAt: "2014-01-11 12:50 EDT"),
-        
-        ParsedTweet(tweetText: "Math is cool",
-            userName: "@redqueencoder",
-            createdAt: "2014-29-10 10:10 EDT"),
-        
-        ParsedTweet(tweetText: "I want a kebab",
-            userName: "@ghammadi",
-            createdAt: "2014-29-10 10:10 EDT",
-            userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg"))
-
     ]
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-//      reloadTweets()
         
         var refresher = UIRefreshControl()
         refresher.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
@@ -81,7 +33,48 @@ public class ViewController: UITableViewController {
 
     
     func reloadTweets() {
-        self.tableView.reloadData()
+        let accountStore = ACAccountStore()
+        let twitterAccountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+        let twitterAccounts = accountStore.accountsWithAccountType(twitterAccountType)
+        
+        if twitterAccounts.count == 0 {
+            println("no twitter account configured")
+        } else {
+            
+        }
+        
+        accountStore.requestAccessToAccountsWithType(twitterAccountType,
+            options: nil,
+            completion: {
+                (BOOL granted, NSError error) -> Void
+            in
+                if (!granted) {
+                    println("account access not granted")
+                } else {
+                    let twitterParams = ["count" :100]
+                    let twitterAPIURL = NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")
+                    let request = SLRequest(
+                        forServiceType: SLServiceTypeTwitter,
+                        requestMethod: SLRequestMethod.GET,
+                        URL: twitterAPIURL,
+                        parameters: twitterParams
+                    )
+                    request.account = twitterAccounts[0] as ACAccount
+                    request.performRequestWithHandler( {
+                        (NSData data, NSHTTPURLResponse urlResponse,NSError error) -> Void in self.handleTwitterData(data, urlResponse: urlResponse, error: error)
+                    })
+                }
+        })
+    }
+    
+    func handleTwitterData (data: NSData!, urlResponse: NSHTTPURLResponse!, error: NSError!) {
+        if let dataValue = data {
+            var parseError: NSError? = nil
+            let jsonObject : AnyObject? = NSJSONSerialization.JSONObjectWithData(dataValue, options: NSJSONReadingOptions(0), error: &parseError)
+            println("JSON error: \(parseError)\nJSON response: \(jsonObject)")
+        } else {
+            println("HandleTwitterData: No data received")
+        }
     }
     
     @IBAction func handleRefresh (sender: AnyObject?) {
@@ -96,6 +89,7 @@ public class ViewController: UITableViewController {
         reloadTweets()
         refreshControl!.endRefreshing()
     }
+    
     
     //    TableView Data source protocol implementation
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
