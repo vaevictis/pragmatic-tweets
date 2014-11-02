@@ -14,7 +14,7 @@ class ParsedTweet: NSObject {
     var tweetText: String?
     var userName:  String?
     var createdAt: String?
-    var userAvatarUrl: NSURL?
+    var userAvatarURL: NSURL?
     
     init(tweetText: String?, userName: String?, createdAt: String?, userAvatarURL: NSURL?) {
         super.init()
@@ -22,14 +22,14 @@ class ParsedTweet: NSObject {
         self.tweetText = tweetText
         self.userName = userName
         self.createdAt = createdAt
-        self.userAvatarUrl = userAvatarURL
+        self.userAvatarURL = userAvatarURL
     }
 
     init(tweetText: String?, userName: String?, createdAt: String?) {
         self.tweetText = tweetText
         self.userName = userName
         self.createdAt = createdAt
-        self.userAvatarUrl = defaultAvatarURL
+        self.userAvatarURL = defaultAvatarURL
     }
     
     override init() {
