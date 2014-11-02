@@ -23,13 +23,56 @@ public class ViewController: UITableViewController {
         ParsedTweet(tweetText: "I want a kebab",
             userName: "@ghammadi",
             createdAt: "2014-29-10 10:10 EDT",
+            userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg")),
+        
+        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
+            userName: "@ghammadi",
+            createdAt: "2014-01-11 12:50 EDT"),
+        
+        ParsedTweet(tweetText: "Math is cool",
+            userName: "@redqueencoder",
+            createdAt: "2014-29-10 10:10 EDT"),
+        
+        ParsedTweet(tweetText: "I want a kebab",
+            userName: "@ghammadi",
+            createdAt: "2014-29-10 10:10 EDT",
+            userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg")),
+
+        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
+            userName: "@ghammadi",
+            createdAt: "2014-01-11 12:50 EDT"),
+        
+        ParsedTweet(tweetText: "Math is cool",
+            userName: "@redqueencoder",
+            createdAt: "2014-29-10 10:10 EDT"),
+        
+        ParsedTweet(tweetText: "I want a kebab",
+            userName: "@ghammadi",
+            createdAt: "2014-29-10 10:10 EDT",
+            userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg")),
+        
+        ParsedTweet(tweetText:"iOS SDK Development now in print. " + "Swift programming FTW!!!",
+            userName: "@ghammadi",
+            createdAt: "2014-01-11 12:50 EDT"),
+        
+        ParsedTweet(tweetText: "Math is cool",
+            userName: "@redqueencoder",
+            createdAt: "2014-29-10 10:10 EDT"),
+        
+        ParsedTweet(tweetText: "I want a kebab",
+            userName: "@ghammadi",
+            createdAt: "2014-29-10 10:10 EDT",
             userAvatarURL: NSURL(string:"https://pbs.twimg.com/profile_images/501964725341523968/rMhRqf4H_normal.jpeg"))
 
     ]
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.reloadTweets()
+//      reloadTweets()
+        
+        var refresher = UIRefreshControl()
+        refresher.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl = refresher
     }
 
     public override func didReceiveMemoryWarning() {
@@ -39,6 +82,19 @@ public class ViewController: UITableViewController {
     
     func reloadTweets() {
         self.tableView.reloadData()
+    }
+    
+    @IBAction func handleRefresh (sender: AnyObject?) {
+        self.parsedTweets.append(
+            ParsedTweet (
+                tweetText: "new row",
+                userName: "@refresh",
+                createdAt: NSDate().description,
+                userAvatarURL: defaultAvatarURL)
+        )
+        
+        reloadTweets()
+        refreshControl!.endRefreshing()
     }
     
     //    TableView Data source protocol implementation
