@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HCS-iz-0dc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LBw-rG-Ye1">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="cpr-ym-WiL">
+            <objects>
+                <navigationController id="LBw-rG-Ye1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EHx-Zb-j7g">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="HCS-iz-0dc" kind="relationship" relationship="rootViewController" id="r8c-ru-JdP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5uo-wp-bto" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1012.5" y="-114"/>
+        </scene>
+        <!--Tweets-->
         <scene sceneID="T9S-fH-p5b">
             <objects>
                 <tableViewController id="HCS-iz-0dc" customClass="RootViewController" customModule="PragmaticTweets" sceneMemberID="viewController">
@@ -116,10 +132,17 @@
                             <outlet property="delegate" destination="HCS-iz-0dc" id="q7W-5E-gvW"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Tweets" id="Zze-c5-4ZC">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mAN-Yq-GVu">
+                            <connections>
+                                <action selector="handleTweetButtonTapped:" destination="HCS-iz-0dc" id="z9h-hV-8YU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X6X-fh-f5X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="301" y="519"/>
+            <point key="canvasLocation" x="-144" y="-114"/>
         </scene>
     </scenes>
 </document>

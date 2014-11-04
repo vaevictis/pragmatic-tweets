@@ -75,16 +75,37 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
     }
     
     @IBAction func handleRefresh (sender: AnyObject?) {
-        self.parsedTweets.append(
-            ParsedTweet (
-                tweetText: "new row",
-                userName: "@refresh",
-                createdAt: NSDate().description,
-                userAvatarURL: defaultAvatarURL)
-        )
-        
+//        self.parsedTweets.append(
+//            ParsedTweet (
+//                tweetText: "new row",
+//                userName: "@refresh",
+//                createdAt: NSDate().description,
+//                userAvatarURL: defaultAvatarURL)
+//        )
+//        
         reloadTweets()
         refreshControl!.endRefreshing()
+    }
+    
+    @IBAction func handleTweetButtonTapped(sender: AnyObject) {
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+        
+            let tweetVC = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            let message = NSBundle.mainBundle().localizedStringForKey("First tweet from some #swift code. Sweet. #pragsios8", value: "", table: nil)
+            
+            tweetVC.setInitialText(message)
+            tweetVC.completionHandler = {
+                (SLComposeViewControllerResult result) -> Void in
+                if result == SLComposeViewControllerResult.Done {
+                    self.reloadTweets()
+                }
+            }
+            
+            self.presentViewController(tweetVC, animated: true, completion: nil)
+        } else {
+            println("Can't send tweet")
+        }
     }
     
     
