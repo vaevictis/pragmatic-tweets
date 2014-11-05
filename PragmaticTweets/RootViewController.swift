@@ -43,7 +43,7 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
         }
     }
     func reloadTweets() {
-        let twitterParams : Dictionary = ["count" :"100", "screen_name": "JaydenJaymes", "include_rts": "1"]
+        let twitterParams : Dictionary = ["count" :"100"]
         let twitterAPIURL = NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")
         let request = TwitterAPIRequest()
         request.sendTwitterRequest(twitterAPIURL, params: twitterParams, delegate: self)
