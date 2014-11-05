@@ -164,7 +164,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AbH-eg-7Kh">
-                                <rect key="frame" x="36" y="232" width="548" height="348"/>
+                                <rect key="frame" x="35" y="232" width="548" height="348"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -181,9 +181,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="H3w-oN-zLI"/>
                     <connections>
-                        <outlet property="tweetLocalMapView" destination="AbH-eg-7Kh" id="9ED-6b-cK4"/>
+                        <outlet property="tweetLocationMapView" destination="AbH-eg-7Kh" id="vEh-OD-05F"/>
                         <outlet property="tweetTextLabel" destination="lQX-49-mLN" id="YfD-sK-6rc"/>
-                        <outlet property="userImageButton" destination="XwE-gf-OmC" id="Jv5-bL-Htj"/>
+                        <outlet property="userImageButton" destination="XwE-gf-OmC" id="AfQ-jp-zff"/>
                         <outlet property="userRealNameLabel" destination="Viz-xd-9bZ" id="KVU-Uv-RVR"/>
                         <outlet property="userScreenNameLabel" destination="RBr-dk-Ckp" id="hE9-GX-TUE"/>
                     </connections>
