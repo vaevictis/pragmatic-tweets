@@ -30,23 +30,32 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
     
+    
+    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showTweetDetailsSegue" {
+            
+            if let tweetDetailVC = segue.destinationViewController as? TweetDetailViewController {
+                let row = self.tableView!.indexPathForSelectedRow()!.row
+                let parsedTweet = parsedTweets[row] as ParsedTweet
+                tweetDetailVC.tweetIdString = parsedTweet.tweetIdString;
+            }
+        }
+    }
     func reloadTweets() {
         let twitterParams : Dictionary = ["count" :"100", "screen_name": "JaydenJaymes", "include_rts": "1"]
         let twitterAPIURL = NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")
         let request = TwitterAPIRequest()
         request.sendTwitterRequest(twitterAPIURL, params: twitterParams, delegate: self)
-        
     }
     
     func handleTwitterData (data: NSData!, urlResponse: NSHTTPURLResponse!, error: NSError!, fromRequest: TwitterAPIRequest!) {
-        println(NSThread.isMainThread() ? "is main thread" : "is not main thread")
         if let dataValue = data {
             var parseError: NSError? = nil
             let jsonObject : AnyObject? = NSJSONSerialization.JSONObjectWithData(dataValue, options: NSJSONReadingOptions(0), error: &parseError)
             
             if parseError != nil { return }
+            
             if let jsonArray = jsonObject as? Array<Dictionary<String, AnyObject>> {
                 self.parsedTweets.removeAll(keepCapacity: true)
                 var index: Int = 0
@@ -55,6 +64,7 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
                     let parsedTweet = ParsedTweet()
                     parsedTweet.tweetText = tweetDict["text"] as? NSString
                     parsedTweet.createdAt = tweetDict["created_at"] as? NSString
+                    parsedTweet.tweetIdString = tweetDict["id_str"] as? NSString
                     
                     let userDict = tweetDict["user"] as NSDictionary
                     
@@ -75,14 +85,6 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
     }
     
     @IBAction func handleRefresh (sender: AnyObject?) {
-//        self.parsedTweets.append(
-//            ParsedTweet (
-//                tweetText: "new row",
-//                userName: "@refresh",
-//                createdAt: NSDate().description,
-//                userAvatarURL: defaultAvatarURL)
-//        )
-//        
         reloadTweets()
         refreshControl!.endRefreshing()
     }
