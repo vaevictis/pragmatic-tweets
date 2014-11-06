@@ -101,6 +101,16 @@ class TweetDetailViewController: UIViewController, TwitterAPIRequestDelegate {
     
     // MARK: - Navigation
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showUserDetailsSegue" {
+            if let userDetailVC = segue.destinationViewController as? UserDetailViewController {
+                userDetailVC.screenName = self.userScreenNameLabel.text
+            }
+        }
+    }
+    
+    @IBAction func unwindToTweetDetailVC(segue: UIStoryboardSegue?) {}
+
     
     // MARK: Memory management
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }

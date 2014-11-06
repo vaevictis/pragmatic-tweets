@@ -20,6 +20,7 @@
 		9D9364641A04B84700A1EA63 /* ParsedTweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9364631A04B84700A1EA63 /* ParsedTweetCell.swift */; };
 		9D9364681A066B9000A1EA63 /* TwitterAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9364671A066B9000A1EA63 /* TwitterAPIRequest.swift */; };
 		9D93646A1A066BFF00A1EA63 /* TwitterAPIRequestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9364691A066BFF00A1EA63 /* TwitterAPIRequestDelegate.swift */; };
+		9DC9EB541A0BB1410018BE8E /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9EB531A0BB1410018BE8E /* UserDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		9D9364631A04B84700A1EA63 /* ParsedTweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsedTweetCell.swift; sourceTree = "<group>"; };
 		9D9364671A066B9000A1EA63 /* TwitterAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPIRequest.swift; sourceTree = "<group>"; };
 		9D9364691A066BFF00A1EA63 /* TwitterAPIRequestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPIRequestDelegate.swift; sourceTree = "<group>"; };
+		9DC9EB531A0BB1410018BE8E /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		9D2C027B19FFB37C008529AF = {
 			isa = PBXGroup;
 			children = (
+				9DC9EB521A0BB1290018BE8E /* User Details VC */,
 				9D4165CD1A090A19002D3F6D /* Tweet Detail VC */,
 				9D2C028619FFB37C008529AF /* PragmaticTweets */,
 				9D2C029C19FFB37C008529AF /* PragmaticTweetsTests */,
@@ -158,6 +161,14 @@
 				9D9364691A066BFF00A1EA63 /* TwitterAPIRequestDelegate.swift */,
 			);
 			name = "Twitter Classes";
+			sourceTree = "<group>";
+		};
+		9DC9EB521A0BB1290018BE8E /* User Details VC */ = {
+			isa = PBXGroup;
+			children = (
+				9DC9EB531A0BB1410018BE8E /* UserDetailViewController.swift */,
+			);
+			name = "User Details VC";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +275,7 @@
 			files = (
 				9D9364641A04B84700A1EA63 /* ParsedTweetCell.swift in Sources */,
 				9D93646A1A066BFF00A1EA63 /* TwitterAPIRequestDelegate.swift in Sources */,
+				9DC9EB541A0BB1410018BE8E /* UserDetailViewController.swift in Sources */,
 				9D9364601A048BC100A1EA63 /* ParsedTweet.swift in Sources */,
 				9D2C028C19FFB37C008529AF /* RootViewController.swift in Sources */,
 				9D9364681A066B9000A1EA63 /* TwitterAPIRequest.swift in Sources */,

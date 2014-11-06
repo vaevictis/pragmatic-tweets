@@ -32,16 +32,6 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
     }
     
     
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showTweetDetailsSegue" {
-            
-            if let tweetDetailVC = segue.destinationViewController as? TweetDetailViewController {
-                let row = self.tableView!.indexPathForSelectedRow()!.row
-                let parsedTweet = parsedTweets[row] as ParsedTweet
-                tweetDetailVC.tweetIdString = parsedTweet.tweetIdString;
-            }
-        }
-    }
     func reloadTweets() {
         let twitterParams : Dictionary = ["count" :"100"]
         let twitterAPIURL = NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")
@@ -111,7 +101,8 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
     }
     
     
-    //    TableView Data source protocol implementation
+    // MARK: - TableView Data source protocol implementation
+    
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -145,5 +136,21 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
         
         return cell
     }
+    
+    
+    // MARK: - Navigation
+
+    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showTweetDetailsSegue" {
+            
+            if let tweetDetailVC = segue.destinationViewController as? TweetDetailViewController {
+                let row = self.tableView!.indexPathForSelectedRow()!.row
+                let parsedTweet = parsedTweets[row] as ParsedTweet
+                tweetDetailVC.tweetIdString = parsedTweet.tweetIdString;
+            }
+        }
+    }
+
+    @IBAction func unwindToRootViewController(segue: UIStoryboardSegue?) {}
     
 }
