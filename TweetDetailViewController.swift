@@ -22,6 +22,7 @@ class TweetDetailViewController: UIViewController, TwitterAPIRequestDelegate {
     @IBOutlet var userScreenNameLabel: UILabel!
     @IBOutlet var tweetTextLabel: UILabel!
     @IBOutlet var tweetLocationMapView: MKMapView!
+    @IBOutlet var tweetImageView: UIImageView!
     
     func reloadTweetDetails() {
         if tweetIdString == nil {return}
@@ -57,6 +58,18 @@ class TweetDetailViewController: UIViewController, TwitterAPIRequestDelegate {
                         self.userImageButton.setImage(UIImage(data: NSData(contentsOfURL: userImageURL!)!), forState: UIControlState.Normal)
                         
                         self.drawMap(tweetDict)
+                        
+                        if let entities = tweetDict["entities"] as? NSDictionary {
+                            if let media = entities ["media"] as? NSArray {
+                                if let mediaString = media[0]["media_url"] as? String {
+                                    if let mediaURL = NSURL(string: mediaString) {
+                                        if let mediaData = NSData (contentsOfURL: mediaURL) {
+                                            self.tweetImageView.image = UIImage(data: mediaData)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     })
                 }
             } else {

@@ -10,7 +10,7 @@ import UIKit
 import Social
 import Accounts
 
-public class RootViewController: UITableViewController, TwitterAPIRequestDelegate {
+public class RootViewController: UITableViewController, TwitterAPIRequestDelegate, UISplitViewControllerDelegate {
     
     var parsedTweets: Array <ParsedTweet> = [
         ParsedTweet(tweetText: "I want a kebab",
@@ -25,6 +25,10 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
         var refresher = UIRefreshControl()
         refresher.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refresher
+        
+        if self.splitViewController != nil {
+            self.splitViewController!.delegate = self
+        }
     }
 
     public override func didReceiveMemoryWarning() {
@@ -138,6 +142,33 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
         return cell
     }
     
+    override public func tableView(tableView:UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let parsedTweet = parsedTweets[indexPath.row]
+        if self.splitViewController != nil {
+            if (self.splitViewController!.viewControllers.count > 1) {
+                if let tweetDetailNav = self.splitViewController!.viewControllers[1] as? UINavigationController {
+                    if let tweetDetailVC = tweetDetailNav.viewControllers[0] as? TweetDetailViewController {
+                        tweetDetailVC.tweetIdString = parsedTweet.tweetIdString
+                    }
+                }
+            } else {
+                if let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier("TweetDetailVC") as? TweetDetailViewController {
+                    detailVC.tweetIdString = parsedTweet.tweetIdString
+                    self.splitViewController!.showDetailViewController(detailVC, sender: self)
+                }
+            }
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    // MARK - UISplitViewDelegate implementation
+    
+    public func splitViewController(splitViewController: UISplitViewController,
+        collapseSecondaryViewController secondaryViewController: UIViewController!,
+        ontoPrimaryViewController primaryViewController: UIViewController!) -> Bool {
+           return true
+    }
     
     // MARK: - Navigation
 
