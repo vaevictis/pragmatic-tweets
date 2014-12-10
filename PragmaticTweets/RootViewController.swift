@@ -117,21 +117,22 @@ public class RootViewController: UITableViewController, TwitterAPIRequestDelegat
         let parsedTweet = parsedTweets[indexPath.row]
         cell.tweetTextLabel.text = parsedTweet.tweetText
         cell.userNameLabel.text = parsedTweet.userName
-        cell.createdAtLabel!.text = parsedTweet.createdAt
+        cell.createdAtLabel.text = parsedTweet.createdAt
         
         if parsedTweet.userAvatarURL != nil {
             cell.avatarImageView.image = nil
         }
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            () -> Void in
-            let avatarImage = UIImage(data: NSData (contentsOfURL: parsedTweet.userAvatarURL!)!)
-            dispatch_async(dispatch_get_main_queue(), {
-                if cell.userNameLabel.text == parsedTweet.userName {
-                    cell.avatarImageView.image = avatarImage
-                } else {
-                    println("oops, wrong cell, never mind!")
-                }
-            })
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            if let imageData = NSData (contentsOfURL: parsedTweet.userAvatarURL!) {
+                let avatarImage = UIImage(data: imageData)
+                dispatch_async(dispatch_get_main_queue(), {
+                    if cell.userNameLabel.text == parsedTweet.userName {
+                        cell.avatarImageView.image = avatarImage
+                    } else {
+                        println("oops, wrong cell, never mind!")
+                    }
+                })
+            }
         })
         
         return cell
